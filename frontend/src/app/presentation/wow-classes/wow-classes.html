@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let c of classes$ | async">
+    <a [routerLink]="['/classes', c.id]">
+      {{ c.name }}
+    </a>
+  </li>
+</ul>
+

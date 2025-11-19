@@ -1,9 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { WowClassesComponent } from './presentation/wow-classes/wow-classes';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, WowClassesComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
