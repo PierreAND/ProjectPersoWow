@@ -19,15 +19,29 @@ export interface SimplePlayableRace {
   name: LocalizedString;
 }
 
-export interface media {
-  id: number
+export interface assetsImg{
+  id: number;
+  key: string;
+  value: string;
+  file_data_id: number;
+}
+export interface mediaDTO {
+  
+	_links: {
+		self: {
+			href: string
+		}
+	},
+  assets: assetsImg[]
+	id: 5
+
 }
 
 export interface ClassDetailSimpleDTO {
+  assets: any;
   id: number;
   name: string;
   power_type: SimplePowerType;
   specializations: SimpleSpecialization[];
   playable_races: SimplePlayableRace[];
-  media_id: media;
 }

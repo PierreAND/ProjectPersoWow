@@ -1,4 +1,4 @@
-import { LocalizedString, media } from "../../infrastructure/dto/wow-details-class.dto";
+import { LocalizedString } from "../../infrastructure/dto/wow-details-class.dto";
 
 export interface PowerType {
   id: number;
@@ -21,5 +21,10 @@ export interface ClassDetail {
   power_type: PowerType;
   specializations: Specialization[];
   playable_races: PlayableRace[];
-  media_id: media;
+}
+
+
+export interface ClassImage {
+  id: number;
+  assets: any
 }
