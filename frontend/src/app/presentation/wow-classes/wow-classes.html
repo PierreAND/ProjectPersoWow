@@ -1,8 +1,13 @@
 <ul>
-  <li *ngFor="let c of classes$ | async">
-    <a [routerLink]="['/classes', c.id]">
-      {{ c.name }}
+  <li *ngFor="let classItem of classes$ | async">
+    <a [routerLink]="['/classes', classItem.id]">
+      <div *ngIf="getClassImage(classItem.id) as img" class="img-class">
+        <img 
+          [src]="img.assets[0]?.value" 
+          [alt]="img.assets[0]?.id"
+        >
+      </div>
+      {{ classItem.name }}
     </a>
   </li>
 </ul>
-

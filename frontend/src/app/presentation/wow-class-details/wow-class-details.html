@@ -6,13 +6,18 @@
 
 <h3>Specializations</h3>
 <ul>
-  <li *ngFor="let spec of c.specializations">{{ spec.name.fr_FR }}</li>
+  <li *ngFor="let spec of c.specializations"> 
+    <a [routerLink]="['/spe-details', ]">
+      
+    </a> {{ spec.name.fr_FR }}</li>
 </ul>
 
 <h3>Playable Races</h3>
 <ul>
   <li *ngFor="let race of c.playable_races">{{ race.name.fr_FR }}</li>
 </ul>
+
+
 
 <div *ngIf="!classData()">
   <p>Loading...</p>

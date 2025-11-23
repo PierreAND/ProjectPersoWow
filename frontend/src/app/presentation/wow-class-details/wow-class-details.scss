@@ -1,0 +1,308 @@
+// Variables WoW
+$wow-gold: #ffd700;
+$wow-dark: #0a0a0a;
+$wow-bg: #1a1a1a;
+$wow-border: #3d3d3d;
+$wow-text: #f0e6d2;
+$wow-accent: #8b4513;
+$wow-glow: #ff8c00;
+
+.detail-page {
+  min-height: 100vh;
+  background: 
+    radial-gradient(ellipse at top, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+    linear-gradient(180deg, $wow-dark 0%, $wow-bg 100%);
+  padding: 60px 40px;
+  font-family: 'Cinzel', 'Georgia', serif;
+  color: $wow-text;
+  
+  // Conteneur principal
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  // Titre principal (si vous en ajoutez un)
+  h1, h2 {
+    font-size: 48px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 40px;
+    text-align: center;
+    background: linear-gradient(180deg, $wow-gold 0%, #b8860b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        $wow-gold,
+        transparent
+      );
+    }
+  }
+  
+  // Power Type
+  > p {
+    font-size: 24px;
+    padding: 24px 32px;
+    background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+    border: 2px solid $wow-border;
+    border-left: 4px solid $wow-gold;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      border-left-width: 8px;
+      transform: translateX(4px);
+      box-shadow: 
+        0 6px 20px rgba(255, 215, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    strong {
+      color: $wow-gold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-right: 12px;
+      font-size: 18px;
+    }
+  }
+  
+  // Sections (Specializations, Playable Races)
+  h3 {
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 48px 0 24px;
+    color: $wow-gold;
+    position: relative;
+    padding-left: 20px;
+    
+    &::before {
+      content: '⚔';
+      position: absolute;
+      left: 0;
+      font-size: 28px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        $wow-gold,
+        transparent
+      );
+    }
+  }
+  
+  // Listes
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+    
+    li {
+      padding: 20px 24px;
+      background: linear-gradient(135deg, #252525 0%, #1a1a1a 100%);
+      border: 2px solid $wow-border;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      
+      // Effet de brillance
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 215, 0, 0.1),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+      
+      // Point décoratif
+      &::after {
+        content: '◆';
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $wow-gold;
+        opacity: 0.3;
+        font-size: 12px;
+      }
+      
+      &:hover {
+        transform: translateX(8px) translateY(-4px);
+        border-color: $wow-gold;
+        box-shadow: 
+          0 8px 20px rgba(255, 215, 0, 0.2),
+          inset 0 0 20px rgba(255, 215, 0, 0.05);
+        
+        &::before {
+          left: 100%;
+        }
+        
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  
+  // État de chargement
+  > div {
+    text-align: center;
+    padding: 80px 20px;
+    
+    p {
+      font-size: 28px;
+      color: $wow-gold;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      animation: loadingPulse 1.5s ease-in-out infinite;
+      
+      &::after {
+        content: '...';
+        animation: loadingDots 1.5s steps(4, end) infinite;
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes loadingPulse {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  50% {
+    opacity: 0.6;
+    text-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+  }
+}
+
+@keyframes loadingDots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Animation d'apparition des éléments
+.detail-page {
+  animation: fadeIn 0.6s ease;
+  
+  > * {
+    animation: fadeIn 0.6s ease backwards;
+    
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.1}s;
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .detail-page {
+    padding: 40px 20px;
+    
+    h1, h2 {
+      font-size: 32px;
+    }
+    
+    h3 {
+      font-size: 24px;
+    }
+    
+    > p {
+      font-size: 18px;
+      padding: 16px 20px;
+    }
+    
+    ul {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      
+      li {
+        font-size: 16px;
+        padding: 16px 20px;
+      }
+    }
+  }
+}
+
+// Ajout d'un badge "NEW" optionnel pour les nouveaux specs/races
+.badge-new {
+  display: inline-block;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #ff0000, #cc0000);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+  margin-left: 8px;
+  box-shadow: 0 2px 8px rgba(255, 0, 0, 0.4);
+  animation: pulse 2s ease-in-out infinite;
+}
