@@ -8,6 +8,10 @@ import {ClassDetailSimpleDTO, mediaDTO } from "../dto/wow-details-class.dto";
 import { ClassDetail, ClassImage } from "../../domain/models/wowClassDetail.model";
 import { WowClassDetailMapper } from "../mapper/wowClassDetails.mapper";
 import { WowClassImgMapper } from "../mapper/wowImage.mapper";
+import { SpecializationDTO } from "../dto/wow-specialization-details.dto";
+import { SpeDetails } from "../../domain/models/wowSpecializationDetails";
+import { SpecializationMapper } from "../mapper/wowSpeDetails.mapper";
+import { cp } from "fs";
 
 
 @Injectable({
@@ -50,5 +54,15 @@ getImage(id:number): Observable<ClassImage> {
   )
 }
 
+getSpeId(id: number) : Observable<SpeDetails> {
+    const headers = new HttpHeaders({
+    Authorization: `Bearer ${environment.bearerToken}`
+  });
+  return this.http.get<SpecializationDTO>(`https://us.api.blizzard.com/data/wow/playable-specialization/${id}?namespace=static-11.2.5_63286-us`, {headers}).pipe(
+    map((dto: SpecializationDTO) => 
+      SpecializationMapper.fromDTO(dto))
+  
+  )
+  
 }
-
+}

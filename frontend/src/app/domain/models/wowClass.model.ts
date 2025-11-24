@@ -4,10 +4,4 @@ export interface Classes {
 }
 
 
-export interface Specialization {
-    id: number,
-    name: string,
-    role: 'TANK' | 'HEAL' | 'DPS'
-}
-
 

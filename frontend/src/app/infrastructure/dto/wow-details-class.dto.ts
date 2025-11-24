@@ -38,7 +38,6 @@ export interface mediaDTO {
 }
 
 export interface ClassDetailSimpleDTO {
-  assets: any;
   id: number;
   name: string;
   power_type: SimplePowerType;

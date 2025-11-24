@@ -1,10 +1,9 @@
 import { Component, signal, AfterViewInit } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
-import { WowClassesComponent } from './presentation/wow-classes/wow-classes';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, WowClassesComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
