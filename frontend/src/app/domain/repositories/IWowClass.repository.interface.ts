@@ -1,7 +1,6 @@
-import { Inject, Injectable, InjectionToken } from "@angular/core"
+import { InjectionToken } from "@angular/core"
 import { Classes } from "../models/wowClass.model";
 import { Observable } from "rxjs";
-import { ClassDetailSimpleDTO } from "../../infrastructure/dto/wow-details-class.dto";
 import { ClassDetail, ClassImage } from "../models/wowClassDetail.model";
 import { SpeDetails } from "../models/wowSpecializationDetails";
 
