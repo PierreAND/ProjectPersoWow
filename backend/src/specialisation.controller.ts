@@ -1,12 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
 import { SpecialisationService } from './specialisation.service';
-import { Specialisation as SpecialisationModel } from '@prisma/client';
+import { Specialisation } from '@prisma/client';
 
-@Controller('specialisation')
-export class AppController {
+@Controller()
+export class SpecialisationController {
   constructor(private readonly specialisationService: SpecialisationService) {}
   @Get()
-  async getAllSpecialisations(): Promise<SpecialisationModel[]> {
+  async getAllSpecialisations(): Promise<Specialisation[]> {
     return this.specialisationService.getAllSpecialisations();
   }
 }

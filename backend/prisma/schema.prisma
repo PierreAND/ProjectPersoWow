@@ -5,44 +5,40 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
-
 model Specialisation {
-  id        Int       @id @default(autoincrement())
-  templates  Template[]
-  cycles     Cycle[]
-  glyphes    Glyphe[]
+  id        Int        @id @default(autoincrement())
+  templates Template[]
+  cycles    Cycle[]
+  glyphes   Glyphe[]
 }
 
 model Template {
-  id   Int   @default(autoincrement()) @id
+  id    Int             @id @default(autoincrement())
   opti1 String
   opti2 String
-  spe Specialisation? @relation(fields: [speId], references: [id])
+  spe   Specialisation? @relation(fields: [speId], references: [id])
   speId Int?
 }
 
-
 model Cycle {
-  id   Int   @default(autoincrement()) @id
+  id        Int             @id @default(autoincrement())
   monocible String
   zone      String
-  spe Specialisation? @relation(fields: [speId], references: [id])
-  speId Int?
+  spe       Specialisation? @relation(fields: [speId], references: [id])
+  speId     Int?
 }
 
 model Glyphe {
-   id   Int   @default(autoincrement()) @id
+  id     Int             @id @default(autoincrement())
   majeur String
   mineur String
-  spe Specialisation? @relation(fields: [speId], references: [id])
-  speId Int?
+  spe    Specialisation? @relation(fields: [speId], references: [id])
+  speId  Int?
 }
