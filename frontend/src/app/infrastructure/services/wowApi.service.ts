@@ -3,7 +3,6 @@ import { map, Observable } from "rxjs";
 import { environment } from '../../../../environment';
 import { WowClassRepository } from "../../domain/repositories/IWowClass.repository.interface";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
 import {ClassDetailSimpleDTO, mediaDTO } from "../dto/wow-details-class.dto";
 import { ClassDetail, ClassImage } from "../../domain/models/wowClassDetail.model";
 import { WowClassDetailMapper } from "../mapper/wowClassDetails.mapper";
@@ -11,12 +10,13 @@ import { WowClassImgMapper } from "../mapper/wowImage.mapper";
 import { SpecializationDTO } from "../dto/wow-specialization-details.dto";
 import { SpeDetails } from "../../domain/models/wowSpecializationDetails";
 import { SpecializationMapper } from "../mapper/wowSpeDetails.mapper";
-import { cp } from "fs";
+import { Injectable } from "@angular/core";
 
 
 @Injectable({
     providedIn: 'root'
 })
+
 
 export class WowApiService implements WowClassRepository {
   private apiUrl = environment.url;

@@ -17,11 +17,11 @@ import { GetImageById } from '../../application/usecases/wow_classes/getImage.us
 export class WowClassesComponent implements OnInit {
   classes$!: Observable<Classes[]>;
   classImages = signal<Map<number, ClassImage>>(new Map());
+  
 
   constructor(
     private getClasses: GetClasses,
-    private route: ActivatedRoute,
-    private getImage: GetImageById
+    private getImage: GetImageById,
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +37,7 @@ export class WowClassesComponent implements OnInit {
       });
     });
   }
+
 
   getClassImage(classId: number): ClassImage | undefined {
     return this.classImages().get(classId);

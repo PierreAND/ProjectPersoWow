@@ -6,3 +6,44 @@
 <p>{{c.genderDescription.male.fr_FR}}</p>
 <p>Role : {{c.role.name.fr_FR}}</p>
 <p>Stat Focus : {{c.primaryStat.name.fr_FR}}</p>
+
+
+<div *ngIf="dData() as p">
+
+  <div *ngFor="let talent of p.templates">
+  <h2>Talents</h2>
+    <img [src]="talent.opti1" alt="template1">
+    <img [src]="talent.opti2" alt="template2">
+</div>
+  <div *ngFor="let glyphe of p.glyphes">
+
+ <h2>Glyphes</h2>
+    <h3>Majeurs :</h3>
+    <ul>
+      <li *ngFor="let url of formatUrls(glyphe.majeur) let i = index">
+        <a [href]="url" target="_blank"> Glyphes {{ i + 1}}
+        </a>
+      </li>
+    </ul>
+
+    <h4>Mineur :</h4>
+    <ul>
+      <li *ngFor="let url of formatUrls(glyphe.mineur) let i = index">
+        <a [href]="url" target="_blank"> Glyphes {{ i + 1 }}</a>
+      </li>
+    </ul>
+
+   
+
+  </div>
+
+<div *ngFor="let attack of p.cycles">
+  <h3>Monocible</h3>
+  <p [innerHTML]="formatCycleText(attack.monocible)"></p>
+
+  <h3>Zone</h3>
+  <p [innerHTML]="formatCycleText(attack.zone)"></p>
+</div>
+
+
+</div>

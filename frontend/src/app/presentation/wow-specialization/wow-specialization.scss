@@ -6,274 +6,337 @@ $wow-border: #3d3d3d;
 $wow-text: #f0e6d2;
 $wow-accent: #8b4513;
 $wow-glow: #ff8c00;
-$wow-blue: #4a9eff;
-$wow-purple: #a335ee;
 
 .spe-details {
   min-height: 100vh;
   background: 
-    radial-gradient(ellipse at top, rgba(74, 158, 255, 0.15) 0%, transparent 60%),
-    radial-gradient(ellipse at bottom right, rgba(163, 53, 238, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at top, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
     linear-gradient(180deg, $wow-dark 0%, $wow-bg 100%);
-  padding: 80px 40px;
+  padding: 60px 40px;
   font-family: 'Cinzel', 'Georgia', serif;
   color: $wow-text;
-  
-  // Conteneur principal
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
-  position: relative;
-  
-  // Animation d'apparition
-  animation: fadeInUp 0.8s ease;
-  
-  // Titre principal (nom de la spécialisation)
-  h2 {
-    font-size: 56px;
-    font-weight: 900;
+  animation: fadeIn 0.6s ease;
+
+  // Titre principal de la spécialisation
+  > h2 {
+    font-size: 48px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 6px;
-    margin-bottom: 60px;
+    letter-spacing: 4px;
+    margin-bottom: 40px;
     text-align: center;
-    background: linear-gradient(135deg, $wow-gold 0%, $wow-glow 50%, $wow-gold 100%);
+    background: linear-gradient(180deg, $wow-gold 0%, #b8860b 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+    filter: drop-shadow(0 4px 12px rgba(255, 215, 0, 0.3));
     position: relative;
-    padding-bottom: 30px;
-    
-    &::before {
-      content: '⚔';
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%) translateY(-80px);
-      font-size: 48px;
-      opacity: 0.6;
-      animation: floatIcon 3s ease-in-out infinite;
-    }
     
     &::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      bottom: -16px;
       left: 50%;
       transform: translateX(-50%);
-      width: 300px;
-      height: 3px;
+      width: 200px;
+      height: 2px;
       background: linear-gradient(
         90deg,
         transparent,
         $wow-gold,
-        $wow-glow,
-        $wow-gold,
         transparent
       );
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
     }
   }
-  
-  // Paragraphes (description et informations)
+
+  // Descriptions et infos principales
   > p {
     font-size: 20px;
-    line-height: 1.8;
-    padding: 32px 40px;
-    margin-bottom: 24px;
-    background: linear-gradient(145deg, rgba(42, 42, 42, 0.8) 0%, rgba(26, 26, 26, 0.8) 100%);
+    padding: 24px 32px;
+    background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
     border: 2px solid $wow-border;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 4px solid $wow-gold;
+    border-radius: 8px;
+    margin-bottom: 24px;
     box-shadow: 
-      0 4px 16px rgba(0, 0, 0, 0.6),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    
-    // Bordure gauche colorée selon le type
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 6px;
-      background: linear-gradient(180deg, $wow-gold, $wow-glow);
-      transition: width 0.3s ease;
-    }
-    
-    // Effet de brillance au survol
-    &::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -100%;
-      width: 100%;
-      height: 200%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 215, 0, 0.1),
-        transparent
-      );
-      transform: rotate(45deg);
-      transition: left 0.6s ease;
-    }
+      0 4px 16px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.6s ease backwards;
+    animation-delay: 0.1s;
     
     &:hover {
-      transform: translateX(8px);
-      border-color: rgba(255, 215, 0, 0.4);
+      border-left-width: 8px;
+      transform: translateX(4px);
       box-shadow: 
-        0 8px 24px rgba(255, 215, 0, 0.3),
+        0 6px 20px rgba(255, 215, 0, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      
-      &::before {
-        width: 10px;
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-      }
-      
-      &::after {
-        left: 100%;
-      }
     }
-    
-    // Style pour les labels (Role, Stat Focus)
-    &:has(strong),
-    &:nth-child(3),
-    &:nth-child(4) {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 22px;
-      padding: 24px 40px;
-      
+  }
+
+  // Conteneur des sections (talents, glyphes, cycles)
+  > div {
+    animation: fadeIn 0.6s ease backwards;
+    animation-delay: 0.2s;
+
+    // Chaque section (talent, glyphe, cycle)
+    > div {
+      background: linear-gradient(145deg, #252525 0%, #1a1a1a 100%);
+      border: 2px solid $wow-border;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 40px;
+      box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      // Effet de brillance au survol
       &::before {
-        background: linear-gradient(180deg, $wow-blue, $wow-purple);
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 215, 0, 0.05) 0%,
+          transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
       }
-    }
-    
-    // Description (premier paragraphe avec texte long)
-    &:first-of-type {
-      font-size: 18px;
-      font-family: 'Georgia', serif;
-      font-style: italic;
-      background: linear-gradient(145deg, rgba(26, 26, 42, 0.9) 0%, rgba(15, 15, 26, 0.9) 100%);
-      border-color: rgba(74, 158, 255, 0.3);
-      padding: 40px;
-      line-height: 1.9;
-      text-align: justify;
-      
-      &::before {
-        background: linear-gradient(180deg, $wow-blue, rgba(74, 158, 255, 0.5));
+
+      &:hover {
+        border-color: rgba(255, 215, 0, 0.5);
+        box-shadow: 
+          0 12px 32px rgba(255, 215, 0, 0.15),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transform: translateY(-4px);
+
+        &::before {
+          opacity: 1;
+        }
+      }
+
+      // Titres des sections (Talents, Glyphes)
+      > h2 {
+        font-size: 36px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin: 0 0 32px 0;
+        color: $wow-gold;
+        position: relative;
+        padding-left: 28px;
+        text-align: left;
+        background: none;
+        -webkit-text-fill-color: $wow-gold;
+        filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.4));
+        
+        &::before {
+          content: '⚔';
+          position: absolute;
+          left: 0;
+          font-size: 28px;
+          animation: pulse 2s ease-in-out infinite;
+        }
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -12px;
+          left: 0;
+          width: 120px;
+          height: 2px;
+          background: linear-gradient(
+            90deg,
+            $wow-gold,
+            transparent
+          );
+        }
+      }
+
+      // Conteneur des images de talents
+      > img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
+        margin: 16px auto;
+        border: 3px solid $wow-border;
+        border-radius: 8px;
+        box-shadow: 
+          0 4px 16px rgba(0, 0, 0, 0.8),
+          inset 0 0 20px rgba(0, 0, 0, 0.5);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: $wow-dark;
+        
+        &:hover {
+          transform: scale(1.02);
+          border-color: $wow-gold;
+          box-shadow: 
+            0 0 30px rgba(255, 215, 0, 0.5),
+            0 8px 24px rgba(0, 0, 0, 0.9),
+            inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        &:first-of-type {
+          margin-bottom: 24px;
+        }
+      }
+
+      // Sous-titres (Majeurs, Mineur, Monocible, Zone)
+      h3, h4 {
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 32px 0 16px;
+        color: $wow-glow;
+        position: relative;
+        padding-left: 20px;
+        filter: drop-shadow(0 2px 6px rgba(255, 140, 0, 0.4));
+        
+        &::before {
+          content: '◆';
+          position: absolute;
+          left: 0;
+          font-size: 16px;
+          color: $wow-gold;
+        }
+      }
+
+      h4 {
+        font-size: 20px;
+        color: #c9a24a;
+        margin-top: 24px;
+      }
+
+      // Listes de glyphes
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 24px 0;
+        
+        li {
+          padding: 16px 24px;
+          background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+          border: 2px solid $wow-border;
+          border-left: 4px solid $wow-glow;
+          border-radius: 6px;
+          margin-bottom: 12px;
+          font-size: 16px;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          position: relative;
+          overflow: hidden;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+          
+          // Effet de brillance
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              rgba(255, 215, 0, 0.1),
+              transparent
+            );
+            transition: left 0.5s ease;
+          }
+          
+          &:hover {
+            transform: translateX(8px);
+            border-left-width: 6px;
+            border-color: $wow-gold;
+            box-shadow: 
+              0 4px 16px rgba(255, 215, 0, 0.2),
+              inset 0 0 20px rgba(255, 215, 0, 0.05);
+            
+            &::before {
+              left: 100%;
+            }
+          }
+          
+          a {
+            color: $wow-text;
+            text-decoration: none !important;
+            transition: color 0.2s ease;
+            word-break: break-all;
+            
+            &:hover,
+            &:focus,
+            &:active,
+            &:visited {
+              color: $wow-gold;
+              text-decoration: none !important;
+              filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+            }
+          }
+        }
+      }
+
+      // Paragraphes (cycles d'attaque)
+      > p {
+        font-size: 18px;
+        line-height: 1.8;
+        padding: 20px 24px;
+        background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+        border: 2px solid $wow-border;
+        border-left: 4px solid $wow-accent;
+        border-radius: 6px;
+        margin: 12px 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+        
+        &:hover {
+          border-left-width: 6px;
+          border-color: $wow-gold;
+          transform: translateX(4px);
+          box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
+        }
       }
     }
   }
-  
-  // Icônes décoratifs pour les stats
-  p:nth-child(3)::before {
-    content: '🛡';
-    position: absolute;
-    left: 12px;
-    font-size: 24px;
-    opacity: 0.4;
-  }
-  
-  p:nth-child(4)::before {
-    content: '⚡';
-    position: absolute;
-    left: 12px;
-    font-size: 24px;
-    opacity: 0.4;
+
+  // État de chargement
+  > div:empty {
+    text-align: center;
+    padding: 80px 20px;
+    
+    &::after {
+      content: 'Chargement...';
+      font-size: 28px;
+      color: $wow-gold;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      animation: loadingPulse 1.5s ease-in-out infinite;
+    }
   }
 }
 
 // Animations
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes floatIcon {
+@keyframes pulse {
   0%, 100% {
-    transform: translateX(-50%) translateY(-80px);
+    transform: scale(1);
+    opacity: 1;
   }
   50% {
-    transform: translateX(-50%) translateY(-90px);
-  }
-}
-
-// Animation progressive des éléments
-.spe-details {
-  > * {
-    animation: fadeInUp 0.6s ease backwards;
-    
-    @for $i from 1 through 6 {
-      &:nth-child(#{$i}) {
-        animation-delay: #{$i * 0.15}s;
-      }
-    }
-  }
-}
-
-// Responsive
-@media (max-width: 768px) {
-  .spe-details {
-    padding: 60px 20px;
-    
-    h2 {
-      font-size: 36px;
-      letter-spacing: 4px;
-      margin-bottom: 40px;
-      
-      &::before {
-        font-size: 32px;
-        transform: translateX(-50%) translateY(-60px);
-      }
-      
-      &::after {
-        width: 200px;
-      }
-    }
-    
-    > p {
-      font-size: 16px;
-      padding: 24px 28px;
-      
-      &:first-of-type {
-        font-size: 16px;
-        padding: 28px;
-      }
-      
-      &:nth-child(3),
-      &:nth-child(4) {
-        font-size: 18px;
-        padding: 20px 28px;
-      }
-    }
-  }
-}
-
-// État de chargement (optionnel)
-.loading {
-  text-align: center;
-  padding: 100px 20px;
-  
-  p {
-    font-size: 32px;
-    color: $wow-gold;
-    text-transform: uppercase;
-    letter-spacing: 6px;
-    animation: loadingPulse 1.5s ease-in-out infinite;
-    
-    &::after {
-      content: '...';
-      animation: loadingDots 1.5s steps(4, end) infinite;
-    }
+    transform: scale(1.1);
+    opacity: 0.8;
   }
 }
 
@@ -288,9 +351,69 @@ $wow-purple: #a335ee;
   }
 }
 
-@keyframes loadingDots {
-  0% { content: ''; }
-  25% { content: '.'; }
-  50% { content: '..'; }
-  75% { content: '...'; }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .spe-details {
+    padding: 40px 20px;
+    
+    > h2 {
+      font-size: 32px;
+      letter-spacing: 2px;
+    }
+    
+    > p {
+      font-size: 16px;
+      padding: 16px 20px;
+    }
+    
+    > div > div {
+      padding: 20px;
+      margin-bottom: 24px;
+      
+      > h2 {
+        font-size: 24px;
+        padding-left: 20px;
+      }
+      
+      > img {
+        max-width: 100%;
+        margin: 12px 0;
+      }
+      
+      h3, h4 {
+        font-size: 18px;
+        margin: 20px 0 12px;
+      }
+      
+      ul li {
+        font-size: 14px;
+        padding: 12px 16px;
+      }
+      
+      > p {
+        font-size: 16px;
+        padding: 16px 20px;
+      }
+    }
+  }
+}
+
+// Mode sombre intensifié
+@media (prefers-color-scheme: dark) {
+  .spe-details {
+    background: 
+      radial-gradient(ellipse at top, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+      linear-gradient(180deg, #000000 0%, $wow-dark 100%);
+  }
 }
