@@ -1,3 +1,6 @@
+<a [routerLink]="['/classes']" class="icon-link">
+  Home
+</a>
 <div *ngIf="classData() as c" class="detail-page">
   
 
@@ -8,14 +11,10 @@
 <ul>
   <li *ngFor="let spec of c.specializations"> 
     <a [routerLink]="['/spe-details', spec.id ]">
-      {{ spec.name.fr_FR }}
+      {{ spec.name.fr_FR === 'Hors-la-loi' ? 'Combat' : spec.name.fr_FR  }}
     </a></li>
   </ul>
     
-<h3>Playable Races</h3>
-<ul>
-  <li *ngFor="let race of c.playable_races">{{ race.name.fr_FR }}</li>
-</ul>
 
 
 

@@ -1,5 +1,5 @@
 import { Classes } from "../../domain/models/wowClass.model";
-import { map, Observable } from "rxjs";
+import { map, Observable, switchMap } from "rxjs";
 import { environment } from '../../../../environment';
 import { WowClassRepository } from "../../domain/repositories/IWowClass.repository.interface";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -11,58 +11,51 @@ import { SpecializationDTO } from "../dto/wow-specialization-details.dto";
 import { SpeDetails } from "../../domain/models/wowSpecializationDetails";
 import { SpecializationMapper } from "../mapper/wowSpeDetails.mapper";
 import { Injectable } from "@angular/core";
+import { BlizzardTokenService } from "./blizzard-token.service";
 
 
-@Injectable({
-    providedIn: 'root'
-})
-
-
+@Injectable({ providedIn: 'root' })
 export class WowApiService implements WowClassRepository {
+
   private apiUrl = environment.url;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private blizzardTokenService: BlizzardTokenService 
+  ) {}
+
+  private withAuth<T>(url: string) : Observable<T> {
+    return this.blizzardTokenService.getToken().pipe(
+      switchMap(token => this.http.get<T>(url, {
+        headers: { Authorization: `Bearer ${token}` }
+      }))
+    );
+  }
 
   getAll(): Observable<Classes[]> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${environment.bearerToken}`
-    });
-    
-    return this.http.get<{ classes: Classes[] }>(this.apiUrl, { headers }).pipe(
-        map(res =>res.classes.filter(cls => ![10, 12, 13].includes(cls.id))
-            
-        )
+    return this.withAuth<{ classes: Classes[] }>(this.apiUrl).pipe(
+      map(res => res.classes.filter(cls => ![10, 12, 13].includes(cls.id)))
     );
-}
+  }
 
-getById(id: number): Observable<ClassDetail> {
-  const headers = new HttpHeaders({
-    Authorization: `Bearer ${environment.bearerToken}`
-  });
-  return this.http.get<ClassDetailSimpleDTO>(`https://us.api.blizzard.com/data/wow/playable-class/${id}?namespace=static-11.2.5_63286-us`, { headers }).pipe(
-    map((dto: ClassDetailSimpleDTO) => WowClassDetailMapper.fromDetailDTO(dto))
-  );
-}
+  getById(id: number): Observable<ClassDetail> {
+    const url = `https://us.api.blizzard.com/data/wow/playable-class/${id}?namespace=static-us`;
+    return this.withAuth<ClassDetailSimpleDTO>(url).pipe(
+      map(dto => WowClassDetailMapper.fromDetailDTO(dto))
+    );
+  }
 
+  getImage(id: number): Observable<ClassImage> {
+    const url = `https://us.api.blizzard.com/data/wow/media/playable-class/${id}?namespace=static-us`;
+    return this.withAuth<mediaDTO>(url).pipe(
+      map(dto => WowClassImgMapper.fromDetailDTO(dto))
+    );
+  }
 
-getImage(id:number): Observable<ClassImage> {
-    const headers = new HttpHeaders({
-    Authorization: `Bearer ${environment.bearerToken}`
-  });
-  return  this.http.get<mediaDTO>(`https://us.api.blizzard.com/data/wow/media/playable-class/${id}?namespace=static-11.2.5_63286-us`, {headers}).pipe(
-    map((dto: mediaDTO ) => WowClassImgMapper.fromDetailDTO(dto))
-  )
-}
-
-getSpeId(id: number) : Observable<SpeDetails> {
-    const headers = new HttpHeaders({
-    Authorization: `Bearer ${environment.bearerToken}`
-  });
-  return this.http.get<SpecializationDTO>(`https://us.api.blizzard.com/data/wow/playable-specialization/${id}?namespace=static-11.2.5_63286-us`, {headers}).pipe(
-    map((dto: SpecializationDTO) => 
-      SpecializationMapper.fromDTO(dto))
-  
-  )
-  
-}
+  getSpeId(id: number): Observable<SpeDetails> {
+    const url = `https://us.api.blizzard.com/data/wow/playable-specialization/${id}?namespace=static-us`;
+    return this.withAuth<SpecializationDTO>(url).pipe(
+      map(dto => SpecializationMapper.fromDTO(dto))
+    );
+  }
 }

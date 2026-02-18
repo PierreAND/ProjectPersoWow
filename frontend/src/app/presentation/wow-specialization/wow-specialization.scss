@@ -1,360 +1,458 @@
-// Variables WoW
-$wow-gold: #ffd700;
-$wow-dark: #0a0a0a;
-$wow-bg: #1a1a1a;
-$wow-border: #3d3d3d;
-$wow-text: #f0e6d2;
-$wow-accent: #8b4513;
-$wow-glow: #ff8c00;
+// ──────────────────────────────────────────────
+// SPECIALIZATION DETAILS
+// Perplexity × World of Warcraft
+// ──────────────────────────────────────────────
 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+// ── Design Tokens ──
+$surface-primary: #0c0c0f;
+$surface-card: #141418;
+$surface-elevated: #1a1a20;
+$surface-hover: #1f1f27;
+$surface-border: rgba(255, 215, 0, 0.08);
+$surface-border-hover: rgba(255, 215, 0, 0.2);
+
+$gold-100: #fff8e1;
+$gold-200: #ffe082;
+$gold-300: #ffd54f;
+$gold-400: #ffca28;
+$gold-500: #ffc107;
+$gold-600: #d4a017;
+$gold-glow: rgba(255, 193, 7, 0.15);
+$gold-glow-strong: rgba(255, 193, 7, 0.3);
+
+$text-primary: #e8e6e1;
+$text-secondary: #9b978f;
+$text-muted: #5c5952;
+
+$accent-orange: #e67e22;
+$accent-red: #c0392b;
+
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 20px;
+
+// ── Noise texture mixin ──
+@mixin noise-overlay {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// ── Section card mixin ──
+@mixin section-card {
+  background: $surface-card;
+  border: 1px solid $surface-border;
+  border-radius: $radius-lg;
+  padding: 28px;
+  margin-bottom: 24px;
+  transition: all 0.25s ease;
+
+  &:hover {
+    border-color: $surface-border-hover;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// ── Main Container ──
 .spe-details {
   min-height: 100vh;
-  background: 
-    radial-gradient(ellipse at top, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-    linear-gradient(180deg, $wow-dark 0%, $wow-bg 100%);
-  padding: 60px 40px;
-  font-family: 'Cinzel', 'Georgia', serif;
-  color: $wow-text;
-  max-width: 1200px;
+  background: $surface-primary;
+  padding: 80px 24px 60px;
+  font-family: 'Outfit', sans-serif;
+  color: $text-primary;
+  max-width: 720px;
   margin: 0 auto;
-  animation: fadeIn 0.6s ease;
+  position: relative;
+  @include noise-overlay;
 
-  // Titre principal de la spécialisation
-  > h2 {
-    font-size: 48px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 40px;
-    text-align: center;
-    background: linear-gradient(180deg, $wow-gold 0%, #b8860b 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 4px 12px rgba(255, 215, 0, 0.3));
+  // Ambient glow
+  &::after {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse, $gold-glow 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
     position: relative;
-    
+    z-index: 1;
+  }
+
+  animation: slideUp 0.4s ease;
+
+  // ── Spec Title ──
+  > h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-align: left;
+    color: $text-primary;
+    position: relative;
+    padding-bottom: 20px;
+
+    // Subtle gold underline
     &::after {
       content: '';
       position: absolute;
-      bottom: -16px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 200px;
+      bottom: 0;
+      left: 0;
+      width: 48px;
       height: 2px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        $wow-gold,
-        transparent
-      );
+      background: $gold-500;
+      border-radius: 1px;
     }
   }
 
-  // Descriptions et infos principales
+  // ── Info paragraphs (description, role, stat) ──
   > p {
-    font-size: 20px;
-    padding: 24px 32px;
-    background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
-    border: 2px solid $wow-border;
-    border-left: 4px solid $wow-gold;
-    border-radius: 8px;
-    margin-bottom: 24px;
-    box-shadow: 
-      0 4px 16px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-    animation: fadeIn 0.6s ease backwards;
-    animation-delay: 0.1s;
-    
-    &:hover {
-      border-left-width: 8px;
-      transform: translateX(4px);
-      box-shadow: 
-        0 6px 20px rgba(255, 215, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: $text-secondary;
+    padding: 0;
+    margin: 0 0 8px 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    letter-spacing: 0.2px;
+
+    &:first-of-type {
+      margin-top: 24px;
+      padding: 16px 20px;
+      background: $surface-card;
+      border: 1px solid $surface-border;
+      border-radius: $radius-md;
+      color: $text-primary;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    &:nth-of-type(2),
+    &:nth-of-type(3) {
+      padding: 12px 20px;
+      background: $surface-card;
+      border: 1px solid $surface-border;
+      border-radius: $radius-md;
+      margin-bottom: 8px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: $text-primary;
     }
   }
 
-  // Conteneur des sections (talents, glyphes, cycles)
+  // ── Content sections wrapper ──
   > div {
-    animation: fadeIn 0.6s ease backwards;
-    animation-delay: 0.2s;
+    margin-top: 32px;
 
-    // Chaque section (talent, glyphe, cycle)
+    // ── Each content section (talents, glyphes, cycles, bis) ──
     > div {
-      background: linear-gradient(145deg, #252525 0%, #1a1a1a 100%);
-      border: 2px solid $wow-border;
-      border-radius: 12px;
-      padding: 32px;
-      margin-bottom: 40px;
-      box-shadow: 
-        0 8px 24px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      @include section-card;
       position: relative;
       overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-      // Effet de brillance au survol
-      &::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(
-          circle,
-          rgba(255, 215, 0, 0.05) 0%,
-          transparent 70%
-        );
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-
-      &:hover {
-        border-color: rgba(255, 215, 0, 0.5);
-        box-shadow: 
-          0 12px 32px rgba(255, 215, 0, 0.15),
-          inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        transform: translateY(-4px);
-
-        &::before {
-          opacity: 1;
-        }
-      }
-
-      // Titres des sections (Talents, Glyphes)
+      // ── Section titles (Talents, Glyphes, Best-in-Slot) ──
       > h2 {
-        font-size: 36px;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 13px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 3px;
-        margin: 0 0 32px 0;
-        color: $wow-gold;
-        position: relative;
-        padding-left: 28px;
+        color: $text-muted;
+        margin: 0 0 24px 0;
+        padding-bottom: 12px;
+        border-bottom: 1px solid $surface-border;
         text-align: left;
         background: none;
-        -webkit-text-fill-color: $wow-gold;
-        filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.4));
-        
-        &::before {
-          content: '⚔';
-          position: absolute;
-          left: 0;
-          font-size: 28px;
-          animation: pulse 2s ease-in-out infinite;
-        }
-        
+        -webkit-text-fill-color: $text-muted;
+        filter: none;
+
+        position: relative;
+
         &::after {
           content: '';
           position: absolute;
-          bottom: -12px;
+          bottom: -1px;
           left: 0;
-          width: 120px;
-          height: 2px;
-          background: linear-gradient(
-            90deg,
-            $wow-gold,
-            transparent
-          );
+          width: 32px;
+          height: 1px;
+          background: $gold-500;
         }
       }
 
-      // Conteneur des images de talents
+      // ── Talent images ──
       > img {
         width: 100%;
-        max-width: 500px;
         height: auto;
-        aspect-ratio: 16 / 9;
-        object-fit: cover;
+        object-fit: contain;
         display: block;
-        margin: 16px auto;
-        border: 3px solid $wow-border;
-        border-radius: 8px;
-        box-shadow: 
-          0 4px 16px rgba(0, 0, 0, 0.8),
-          inset 0 0 20px rgba(0, 0, 0, 0.5);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        background: $wow-dark;
-        
+        margin: 12px 0;
+        border: 1px solid $surface-border;
+        border-radius: $radius-md;
+        background: $surface-primary;
+        transition: all 0.3s ease;
+
         &:hover {
-          transform: scale(1.02);
-          border-color: $wow-gold;
-          box-shadow: 
-            0 0 30px rgba(255, 215, 0, 0.5),
-            0 8px 24px rgba(0, 0, 0, 0.9),
-            inset 0 0 20px rgba(0, 0, 0, 0.5);
+          border-color: $surface-border-hover;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
-        &:first-of-type {
-          margin-bottom: 24px;
+        & + img {
+          margin-top: 16px;
         }
       }
 
-      // Sous-titres (Majeurs, Mineur, Monocible, Zone)
-      h3, h4 {
-        font-size: 24px;
+      // ── Sub-section titles (Majeurs, Mineur, Monocible, Zone) ──
+      h3 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 12px;
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 2px;
-        margin: 32px 0 16px;
-        color: $wow-glow;
-        position: relative;
-        padding-left: 20px;
-        filter: drop-shadow(0 2px 6px rgba(255, 140, 0, 0.4));
-        
+        letter-spacing: 2.5px;
+        color: $gold-500;
+        margin: 28px 0 12px;
+        padding: 0;
+        border: none;
+        filter: none;
+
         &::before {
-          content: '◆';
-          position: absolute;
-          left: 0;
-          font-size: 16px;
-          color: $wow-gold;
+          display: none;
+        }
+
+        &::after {
+          display: none;
         }
       }
 
       h4 {
-        font-size: 20px;
-        color: #c9a24a;
-        margin-top: 24px;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: $text-muted;
+        margin: 24px 0 12px;
+        padding: 0;
+        filter: none;
+
+        &::before {
+          display: none;
+        }
       }
 
-      // Listes de glyphes
+      // ── Glyph lists ──
       ul {
         list-style: none;
         padding: 0;
-        margin: 0 0 24px 0;
-        
+        margin: 0 0 16px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
         li {
-          padding: 16px 24px;
-          background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
-          border: 2px solid $wow-border;
-          border-left: 4px solid $wow-glow;
-          border-radius: 6px;
-          margin-bottom: 12px;
-          font-size: 16px;
-          font-weight: 500;
-          letter-spacing: 0.5px;
-          position: relative;
-          overflow: hidden;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-          
-          // Effet de brillance
+          padding: 12px 16px;
+          background: $surface-elevated;
+          border: 1px solid transparent;
+          border-radius: $radius-sm;
+          font-size: 14px;
+          font-weight: 400;
+          color: $text-secondary;
+          transition: all 0.2s ease;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
           &::before {
             content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-              90deg,
-              transparent,
-              rgba(255, 215, 0, 0.1),
-              transparent
-            );
-            transition: left 0.5s ease;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: $gold-600;
+            opacity: 0.3;
+            flex-shrink: 0;
           }
-          
+
           &:hover {
-            transform: translateX(8px);
-            border-left-width: 6px;
-            border-color: $wow-gold;
-            box-shadow: 
-              0 4px 16px rgba(255, 215, 0, 0.2),
-              inset 0 0 20px rgba(255, 215, 0, 0.05);
-            
+            background: $surface-hover;
+            border-color: $surface-border;
+
             &::before {
-              left: 100%;
+              opacity: 1;
             }
           }
-          
+
           a {
-            color: $wow-text;
-            text-decoration: none !important;
+            color: $text-primary;
+            text-decoration: none;
             transition: color 0.2s ease;
-            word-break: break-all;
-            
-            &:hover,
-            &:focus,
-            &:active,
-            &:visited {
-              color: $wow-gold;
-              text-decoration: none !important;
-              filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+
+            &:hover {
+              color: $gold-300;
             }
           }
         }
       }
 
-      // Paragraphes (cycles d'attaque)
+      // ── Cycle / attack paragraphs ──
       > p {
-        font-size: 18px;
+        font-size: 14px;
         line-height: 1.8;
-        padding: 20px 24px;
-        background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
-        border: 2px solid $wow-border;
-        border-left: 4px solid $wow-accent;
-        border-radius: 6px;
-        margin: 12px 0;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-        transition: all 0.3s ease;
-        
+        padding: 16px 20px;
+        background: $surface-elevated;
+        border: 1px solid transparent;
+        border-radius: $radius-md;
+        margin: 8px 0;
+        color: $text-primary;
+        transition: all 0.2s ease;
+
         &:hover {
-          border-left-width: 6px;
-          border-color: $wow-gold;
-          transform: translateX(4px);
-          box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
+          border-color: $surface-border;
         }
       }
     }
   }
 
-  // État de chargement
+  // ── Best-in-Slot Grid ──
+  .bis-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .bis-item {
+    padding: 14px 16px;
+    background: $surface-elevated;
+    border: 1px solid transparent;
+    border-radius: $radius-sm;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: $surface-border-hover;
+      background: $surface-hover;
+    }
+
+    h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: $text-primary;
+      margin: 0;
+      padding: 0;
+      text-transform: none;
+      letter-spacing: 0;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    a {
+      color: $text-primary;
+      text-decoration: none;
+      display: block;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $gold-300;
+
+        h4 {
+          color: $gold-300;
+        }
+      }
+    }
+  }
+
+  // ── Loading ──
   > div:empty {
     text-align: center;
-    padding: 80px 20px;
-    
+    padding: 120px 20px;
+
     &::after {
-      content: 'Chargement...';
-      font-size: 28px;
-      color: $wow-gold;
+      content: 'Loading...';
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      color: $text-muted;
       text-transform: uppercase;
-      letter-spacing: 4px;
-      animation: loadingPulse 1.5s ease-in-out infinite;
+      letter-spacing: 3px;
+      animation: breathe 2s ease-in-out infinite;
     }
   }
 }
 
-// Animations
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
+// ── Home / Back Button ──
+.icon-link {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 100;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 16px;
+  background: $surface-card;
+  border: 1px solid $surface-border;
+  border-radius: $radius-lg;
+  backdrop-filter: blur(12px);
+
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: $text-secondary;
+  text-transform: uppercase;
+
+  transition: all 0.25s ease;
+
+  &::before {
+    content: '←';
+    font-size: 14px;
+    color: $gold-500;
+    transition: transform 0.25s ease;
   }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
+
+  &:hover {
+    border-color: $surface-border-hover;
+    color: $text-primary;
+    background: $surface-elevated;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+
+    &::before {
+      transform: translateX(-3px);
+    }
   }
 }
 
-@keyframes loadingPulse {
-  0%, 100% {
-    opacity: 1;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-  }
-  50% {
-    opacity: 0.6;
-    text-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
-  }
+// ── Animations ──
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
 }
 
-@keyframes fadeIn {
+@keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -362,58 +460,71 @@ $wow-glow: #ff8c00;
   }
 }
 
-// Responsive
-@media (max-width: 768px) {
-  .spe-details {
-    padding: 40px 20px;
-    
-    > h2 {
-      font-size: 32px;
-      letter-spacing: 2px;
-    }
-    
-    > p {
-      font-size: 16px;
-      padding: 16px 20px;
-    }
-    
-    > div > div {
-      padding: 20px;
-      margin-bottom: 24px;
-      
-      > h2 {
-        font-size: 24px;
-        padding-left: 20px;
-      }
-      
-      > img {
-        max-width: 100%;
-        margin: 12px 0;
-      }
-      
-      h3, h4 {
-        font-size: 18px;
-        margin: 20px 0 12px;
-      }
-      
-      ul li {
-        font-size: 14px;
-        padding: 12px 16px;
-      }
-      
-      > p {
-        font-size: 16px;
-        padding: 16px 20px;
+.spe-details {
+  > * {
+    animation: slideUp 0.4s ease backwards;
+
+    @for $i from 1 through 12 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.05}s;
       }
     }
   }
 }
 
-// Mode sombre intensifié
+// ── Responsive ──
+@media (max-width: 768px) {
+  .spe-details {
+    padding: 72px 16px 40px;
+
+    > h2 {
+      font-size: 28px;
+    }
+
+    > p {
+      font-size: 13px;
+    }
+
+    > div > div {
+      padding: 20px;
+
+      > h2 {
+        font-size: 12px;
+      }
+
+      h3 {
+        font-size: 11px;
+      }
+
+      ul li {
+        font-size: 13px;
+        padding: 10px 14px;
+      }
+
+      > p {
+        font-size: 13px;
+        padding: 14px 16px;
+      }
+    }
+
+    .bis-items {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .icon-link {
+    top: 16px;
+    left: 16px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
+// ── Dark mode enhancement ──
 @media (prefers-color-scheme: dark) {
   .spe-details {
-    background: 
-      radial-gradient(ellipse at top, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
-      linear-gradient(180deg, #000000 0%, $wow-dark 100%);
+    &::after {
+      opacity: 0.8;
+    }
   }
 }

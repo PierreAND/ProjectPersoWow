@@ -24,8 +24,10 @@ export class ClassDetailComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     
     this.getClasseById.execute(id).subscribe(res => {
-      console.log(res)
+      
       this.classData.set(res);
     });
   }
+
+
 }

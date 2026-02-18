@@ -1,49 +1,217 @@
-
+<a [routerLink]="['/classes']" class="icon-link">
+  Home
+</a>
 <div *ngIf="speData() as c" class="spe-details">
+  <h2>{{c.name.fr_FR === "Hors-la-loi" ? "Combat" : c.name.fr_FR}}</h2>
+  <p>{{c.genderDescription.male.fr_FR}}</p>
+  <p>Role : {{c.role.name.fr_FR}}</p>
+  <p>Stat Focus : {{c.primaryStat.name.fr_FR}}</p>
+
+  <div *ngIf="dData() as p">
+
+    <div *ngFor="let talent of p.templates">
+      <h2>Talents</h2>
+      <img [src]="talent.opti1" alt="template1">
+      <img [src]="talent.opti2" alt="template2">
+    </div>
+
+    <div *ngFor="let glyphe of p.glyphes">
+      <h2>Glyphes</h2>
+      <h3>Majeurs :</h3>
+      <ul>
+        <li *ngFor="let url of formatUrls(glyphe.majeur) let i = index">
+          <a [href]="url" target="_blank"> Glyphes {{ i + 1}}</a>
+        </li>
+      </ul>
+
+      <h4>Mineur :</h4>
+      <ul>
+        <li *ngFor="let url of formatUrls(glyphe.mineur) let i = index">
+          <a [href]="url" target="_blank"> Glyphes {{ i + 1 }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngFor="let attack of p.cycles">
+      <h3>Monocible</h3>
+      <p [innerHTML]="formatCycleText(attack.monocible)"></p>
+
+      <h3>Zone</h3>
+      <p [innerHTML]="formatCycleText(attack.zone)"></p>
+    </div>
 
 
-<h2>{{c.name.fr_FR}}</h2>
-<p>{{c.genderDescription.male.fr_FR}}</p>
-<p>Role : {{c.role.name.fr_FR}}</p>
-<p>Stat Focus : {{c.primaryStat.name.fr_FR}}</p>
+<div *ngFor="let bis of p.bestInSlots">
+  <h2>Best-in-Slot</h2>
+  
+  <div class="bis-items">
+    <div class="bis-item">
+      <a [href]="bis.tete" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.tete)"
+      rel="noopener">
+      <h4>Tête </h4>
+            </a>
+    </div>
 
+    <div class="bis-item">
+      <a [href]="bis.collier" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.collier)"
+      rel="noopener">
+      <h4>Collier </h4>
+    
+      </a>
+    </div>
 
-<div *ngIf="dData() as p">
+    <div class="bis-item">
+      <a [href]="bis.epaule" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.epaule)"
+      rel="noopener">
+      <h4>Épaule</h4>
+      
+      </a>
+    </div>
 
-  <div *ngFor="let talent of p.templates">
-  <h2>Talents</h2>
-    <img [src]="talent.opti1" alt="template1">
-    <img [src]="talent.opti2" alt="template2">
-</div>
-  <div *ngFor="let glyphe of p.glyphes">
+    <div class="bis-item">
+      <a [href]="bis.cape" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.cape)"
+      rel="noopener">
+      <h4>Cape </h4>
+            </a>
+    </div>
 
- <h2>Glyphes</h2>
-    <h3>Majeurs :</h3>
-    <ul>
-      <li *ngFor="let url of formatUrls(glyphe.majeur) let i = index">
-        <a [href]="url" target="_blank"> Glyphes {{ i + 1}}
+    <div class="bis-item">
+      <a [href]="bis.torse" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.torse)"
+      rel="noopener">
+      <h4>Torse </h4>
+      
+      </a>
+    </div>
+
+    <div class="bis-item">
+      <a [href]="bis.bracelet" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.bracelet)"
+      rel="noopener">
+      
+      <h4>Bracelet </h4>
+      </a>
+    </div>
+
+    <div class="bis-item">
+      <a [href]="bis.gants" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.gants)"
+      rel="noopener">
+      
+      <h4>Gants </h4>
+      </a>
+    </div>
+
+    <div class="bis-item">
+      <a [href]="bis.ceinture" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.ceinture)"
+      rel="noopener">
+      <h4>Pantalon </h4>
+        
+      </a>
+    </div>
+
+    <div class="bis-item">
+      <a [href]="bis.pantalon" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.pantalon)"
+      rel="noopener">
+      <h4>Ceinture </h4>
+      
         </a>
-      </li>
-    </ul>
+    </div>
 
-    <h4>Mineur :</h4>
-    <ul>
-      <li *ngFor="let url of formatUrls(glyphe.mineur) let i = index">
-        <a [href]="url" target="_blank"> Glyphes {{ i + 1 }}</a>
-      </li>
-    </ul>
+    <div class="bis-item">
+      <a [href]="bis.bottes" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.bottes)"
+      rel="noopener">
+      <h4>Bottes </h4>
+     
+      </a>
+    </div>
 
+    <div class="bis-item">
+      <a [href]="bis.anneaux1" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.anneaux1)"
+      rel="noopener">
+      <h4>Anneau 1 </h4>
+    
+      </a>
+    </div>
+
+    <div class="bis-item">
+      <a [href]="bis.anneaux2" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.anneaux2)"
+      rel="noopener">
+      <h4>Anneau 2 </h4>
    
+      </a>
+    </div>
 
+    <div class="bis-item">
+      <a [href]="bis.bijoux1" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.bijoux1)"
+      rel="noopener">
+      <h4>Bijou 1 </h4>
+
+      </a>
+    </div>
+
+    <div class="bis-item">
+      <a [href]="bis.bijoux2" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.bijoux2)"
+      rel="noopener">
+      <h4>Bijou 2 </h4>
+
+      </a>
+    </div>
+
+    <div class="bis-item">
+      <a [href]="bis.arme1" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.arme1)"
+      rel="noopener">
+      <h4>Arme 1 </h4>
+      
+      </a>
+    </div>
+
+    <div class="bis-item">
+      <a [href]="bis.arme2" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.arme2)"
+      rel="noopener">
+      <h4>Arme 2 </h4>
+      
+      </a>
+    </div>
+
+    <div class="bis-item">
+      <a [href]="bis.arme3" 
+      target="_blank"
+      [attr.data-wowhead]="'item=' + getItemId(bis.arme3)"
+      rel="noopener">
+      <h4>Arme 3 </h4>
+      
+      </a>
+    </div>
   </div>
-
-<div *ngFor="let attack of p.cycles">
-  <h3>Monocible</h3>
-  <p [innerHTML]="formatCycleText(attack.monocible)"></p>
-
-  <h3>Zone</h3>
-  <p [innerHTML]="formatCycleText(attack.zone)"></p>
 </div>
-
-
 </div>

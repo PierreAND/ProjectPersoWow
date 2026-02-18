@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SpeDetails } from '../../domain/models/wowSpecializationDetails';
 import { GetSpecializationbyId } from '../../application/usecases/wow_classes/getSpecialization.usecase';
 import { GetSpecialisationbyId } from '../../application/usecases/wow_specialisation/getSpecialisationDetailsById.usecase';
@@ -9,19 +9,23 @@ import { Specialisation } from '../../domain/models/wowSpeDetails.model';
 @Component({
   selector: 'app-wow-specialization',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './wow-specialization.html',
   styleUrl: './wow-specialization.scss',
 })
 export class WowSpecialization implements OnInit {
   speData = signal<SpeDetails | null>(null);
   dData = signal<Specialisation | null>(null);
+BestInSlots: any;
+bestInSlots: any;
+bisSlots: any;
   
   constructor(
     private route: ActivatedRoute,
     private getSpecializationbyId: GetSpecializationbyId,
     private getSpecialisationId: GetSpecialisationbyId,
     private cdr: ChangeDetectorRef
+  
   ) {}
 
   ngOnInit(): void {
@@ -38,11 +42,7 @@ export class WowSpecialization implements OnInit {
     this.getSpecialisationId.execute(id).subscribe(x => {
       console.log(x);
       this.dData.set(x);
-      this.cdr.detectChanges();
-      setTimeout(() => {
-        this.initTooltips();
-      }, 200);
-    });
+    })
   }
 
   private initTooltips(): void {
@@ -64,4 +64,11 @@ export class WowSpecialization implements OnInit {
     .filter(line => line.length > 0)
     .join('<br><br>');
 }
+
+getItemId(url: string): string {
+
+  const match = url.match(/item=(\d+)/);
+  return match ? match[1] : '';
+}
+
 }
