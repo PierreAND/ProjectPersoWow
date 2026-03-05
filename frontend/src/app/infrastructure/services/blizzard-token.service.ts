@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BlizzardTokenService {
   private accessToken: string | null = null;
-  private readonly tokenEndpoint =  environment.urlBlizzardToken;;
+  private readonly tokenEndpoint = 'api/blizzard/token';
 
   constructor(private http: HttpClient) {}
 
