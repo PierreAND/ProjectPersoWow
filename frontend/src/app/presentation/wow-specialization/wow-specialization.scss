@@ -1,40 +1,8 @@
-// ──────────────────────────────────────────────
-// SPECIALIZATION DETAILS
-// Perplexity × World of Warcraft
-// ──────────────────────────────────────────────
 
+@import '../../../styles/variable';
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
-// ── Design Tokens ──
-$surface-primary: #0c0c0f;
-$surface-card: #141418;
-$surface-elevated: #1a1a20;
-$surface-hover: #1f1f27;
-$surface-border: rgba(255, 215, 0, 0.08);
-$surface-border-hover: rgba(255, 215, 0, 0.2);
 
-$gold-100: #fff8e1;
-$gold-200: #ffe082;
-$gold-300: #ffd54f;
-$gold-400: #ffca28;
-$gold-500: #ffc107;
-$gold-600: #d4a017;
-$gold-glow: rgba(255, 193, 7, 0.15);
-$gold-glow-strong: rgba(255, 193, 7, 0.3);
-
-$text-primary: #e8e6e1;
-$text-secondary: #9b978f;
-$text-muted: #5c5952;
-
-$accent-orange: #e67e22;
-$accent-red: #c0392b;
-
-$radius-sm: 8px;
-$radius-md: 12px;
-$radius-lg: 16px;
-$radius-xl: 20px;
-
-// ── Noise texture mixin ──
 @mixin noise-overlay {
   &::before {
     content: '';
@@ -47,7 +15,6 @@ $radius-xl: 20px;
   }
 }
 
-// ── Section card mixin ──
 @mixin section-card {
   background: $surface-card;
   border: 1px solid $surface-border;
@@ -62,7 +29,6 @@ $radius-xl: 20px;
   }
 }
 
-// ── Main Container ──
 .spe-details {
   min-height: 100vh;
   background: $surface-primary;
@@ -74,7 +40,6 @@ $radius-xl: 20px;
   position: relative;
   @include noise-overlay;
 
-  // Ambient glow
   &::after {
     content: '';
     position: fixed;
@@ -95,7 +60,6 @@ $radius-xl: 20px;
 
   animation: slideUp 0.4s ease;
 
-  // ── Spec Title ──
   > h2 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 40px;
@@ -107,7 +71,6 @@ $radius-xl: 20px;
     position: relative;
     padding-bottom: 20px;
 
-    // Subtle gold underline
     &::after {
       content: '';
       position: absolute;
@@ -120,7 +83,6 @@ $radius-xl: 20px;
     }
   }
 
-  // ── Info paragraphs (description, role, stat) ──
   > p {
     font-size: 15px;
     font-weight: 400;
@@ -159,17 +121,14 @@ $radius-xl: 20px;
     }
   }
 
-  // ── Content sections wrapper ──
   > div {
     margin-top: 32px;
 
-    // ── Each content section (talents, glyphes, cycles, bis) ──
     > div {
       @include section-card;
       position: relative;
       overflow: hidden;
 
-      // ── Section titles (Talents, Glyphes, Best-in-Slot) ──
       > h2 {
         font-family: 'Cormorant Garamond', serif;
         font-size: 13px;
@@ -198,7 +157,6 @@ $radius-xl: 20px;
         }
       }
 
-      // ── Talent images ──
       > img {
         width: 100%;
         height: auto;
@@ -220,7 +178,6 @@ $radius-xl: 20px;
         }
       }
 
-      // ── Sub-section titles (Majeurs, Mineur, Monocible, Zone) ──
       h3 {
         font-family: 'Cormorant Garamond', serif;
         font-size: 12px;
@@ -258,7 +215,6 @@ $radius-xl: 20px;
         }
       }
 
-      // ── Glyph lists ──
       ul {
         list-style: none;
         padding: 0;
@@ -311,7 +267,6 @@ $radius-xl: 20px;
         }
       }
 
-      // ── Cycle / attack paragraphs ──
       > p {
         font-size: 14px;
         line-height: 1.8;
@@ -330,7 +285,6 @@ $radius-xl: 20px;
     }
   }
 
-  // ── Best-in-Slot Grid ──
   .bis-items {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -381,7 +335,6 @@ $radius-xl: 20px;
     }
   }
 
-  // ── Loading ──
   > div:empty {
     text-align: center;
     padding: 120px 20px;
@@ -398,7 +351,6 @@ $radius-xl: 20px;
   }
 }
 
-// ── Home / Back Button ──
 .icon-link {
   position: fixed;
   top: 24px;
@@ -443,7 +395,6 @@ $radius-xl: 20px;
   }
 }
 
-// ── Animations ──
 @keyframes breathe {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.8; }
@@ -472,7 +423,6 @@ $radius-xl: 20px;
   }
 }
 
-// ── Responsive ──
 @media (max-width: 768px) {
   .spe-details {
     padding: 72px 16px 40px;
@@ -520,7 +470,6 @@ $radius-xl: 20px;
   }
 }
 
-// ── Dark mode enhancement ──
 @media (prefers-color-scheme: dark) {
   .spe-details {
     &::after {
