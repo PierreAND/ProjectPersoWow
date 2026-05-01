@@ -1,257 +1,246 @@
-// Variables WoW
-$wow-gold: #ffd700;
-$wow-dark: #0a0a0a;
-$wow-bg: #1a1a1a;
-$wow-border: #3d3d3d;
-$wow-text: #f0e6d2;
-$wow-accent: #8b4513;
-$wow-glow: #ff8c00;
+
+@import '../../../styles/variable';
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+
+@mixin noise-overlay {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+}
 
 .detail-page {
   min-height: 100vh;
-  background: 
-    radial-gradient(ellipse at top, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-    linear-gradient(180deg, $wow-dark 0%, $wow-bg 100%);
-  padding: 60px 40px;
-  font-family: 'Cinzel', 'Georgia', serif;
-  color: $wow-text;
-  
-  // Conteneur principal
-  max-width: 1200px;
-  margin: 0 auto;
-  
-  // Titre principal (si vous en ajoutez un)
-  h1, h2 {
-    font-size: 48px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 40px;
-    text-align: center;
-    background: linear-gradient(180deg, $wow-gold 0%, #b8860b 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  background: $surface-primary;
+  padding: 100px 24px 60px;
+  position: relative;
+  font-family: 'Outfit', sans-serif;
+  color: $text-primary;
+  position: relative;
+  @include noise-overlay;
+
+  &::after {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse, $gold-glow 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
     position: relative;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -16px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 200px;
-      height: 2px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        $wow-gold,
-        transparent
-      );
+    z-index: 1;
+  }
+
+  max-width: 720px;
+  margin: 0 auto;
+
+  > p {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: $text-secondary;
+    padding: 16px 20px;
+    background: $surface-card;
+    border: 1px solid $surface-border;
+    border-radius: $radius-md;
+    margin-bottom: 32px;
+    transition: all 0.25s ease;
+    letter-spacing: 0.2px;
+
+    &:hover {
+      border-color: $surface-border-hover;
+      background: $surface-elevated;
+    }
+
+    strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: $gold-400;
+      display: block;
+      margin-bottom: 4px;
     }
   }
 
-  // Power Type
-  > p {
-    font-size: 24px;
-    padding: 24px 32px;
-    background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
-    border: 2px solid $wow-border;
-    border-left: 4px solid $wow-gold;
-    border-radius: 8px;
-    margin-bottom: 40px;
-    box-shadow: 
-      0 4px 16px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-    
-    &:hover {
-      border-left-width: 8px;
-      transform: translateX(4px);
-      box-shadow: 
-        0 6px 20px rgba(255, 215, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-    
-    strong {
-      color: $wow-gold;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-right: 12px;
-      font-size: 18px;
-    }
-  }
-  
-  // Sections (Specializations, Playable Races)
   h3 {
-    font-size: 32px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 3px;
-    margin: 48px 0 24px;
-    color: $wow-gold;
+    color: $text-muted;
+    margin: 48px 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $surface-border;
     position: relative;
-    padding-left: 20px;
-    
-    &::before {
-      content: '⚔';
-      position: absolute;
-      left: 0;
-      font-size: 28px;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    
+
     &::after {
       content: '';
       position: absolute;
-      bottom: -8px;
+      bottom: -1px;
       left: 0;
-      width: 120px;
-      height: 2px;
-      background: linear-gradient(
-        90deg,
-        $wow-gold,
-        transparent
-      );
+      width: 40px;
+      height: 1px;
+      background: $gold-500;
     }
   }
-  
-  // Listes
+
   ul {
     list-style: none;
     padding: 0;
-    margin: 0 0 32px 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 16px;
-    
+    margin: 0 0 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
     li {
-      padding: 20px 24px;
-      background: linear-gradient(135deg, #252525 0%, #1a1a1a 100%);
-      border: 2px solid $wow-border;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: 1px;
+      padding: 14px 18px;
+      background: transparent;
+      border-radius: $radius-sm;
+      font-size: 15px;
+      font-weight: 400;
+      color: $text-primary;
       position: relative;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-      
-      // Effet de brillance
+      transition: all 0.2s ease;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
       &::before {
         content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 215, 0, 0.1),
-          transparent
-        );
-        transition: left 0.5s ease;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: $gold-600;
+        opacity: 0.4;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
       }
-      
-      // Point décoratif
-      &::after {
-        content: '◆';
-        position: absolute;
-        left: 8px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: $wow-gold;
-        opacity: 0.3;
-        font-size: 12px;
-      }
-      
+
       &:hover {
-        transform: translateX(8px) translateY(-4px);
-        border-color: $wow-gold;
-        box-shadow: 
-          0 8px 20px rgba(255, 215, 0, 0.2),
-          inset 0 0 20px rgba(255, 215, 0, 0.05);
-        
+        background: $surface-card;
+
         &::before {
-          left: 100%;
-        }
-        
-        &::after {
           opacity: 1;
+          box-shadow: 0 0 8px $gold-glow-strong;
+        }
+      }
+
+      a {
+        color: $text-primary;
+        text-decoration: none;
+        transition: color 0.2s ease;
+        width: 100%;
+
+        &:hover {
+          color: $gold-300;
         }
       }
     }
   }
-  
-  // État de chargement
+
   > div {
     text-align: center;
-    padding: 80px 20px;
-    
+    padding: 120px 20px;
+
     p {
-      font-size: 28px;
-      color: $wow-gold;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: $text-muted;
       text-transform: uppercase;
       letter-spacing: 4px;
-      animation: loadingPulse 1.5s ease-in-out infinite;
-      
-      &::after {
-        content: '...';
-        animation: loadingDots 1.5s steps(4, end) infinite;
-      }
+      animation: breathe 2s ease-in-out infinite;
     }
   }
 }
-  a {
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &:visited {
+    text-decoration: none;
     color: inherit;
-    text-decoration: none !important; // Force le retrait
-    cursor: pointer;
-    
-    &:hover,
-    &:focus,
-    &:active,
-    &:visited {
-      text-decoration: none !important;
-      color: inherit;
+  }
+}
+
+.icon-link {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 100;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 16px;
+  background: $surface-card;
+  border: 1px solid $surface-border;
+  border-radius: $radius-lg;
+  backdrop-filter: blur(12px);
+
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: $text-secondary;
+  text-transform: uppercase;
+
+  transition: all 0.25s ease;
+
+  &::before {
+    content: '←';
+    font-size: 14px;
+    color: $gold-500;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover {
+    border-color: $surface-border-hover;
+    color: $text-primary;
+    background: $surface-elevated;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+
+    &::before {
+      transform: translateX(-3px);
     }
   }
-// Animations
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.4;
   }
   50% {
-    transform: scale(1.1);
     opacity: 0.8;
   }
 }
 
-@keyframes loadingPulse {
-  0%, 100% {
-    opacity: 1;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-  }
-  50% {
-    opacity: 0.6;
-    text-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
-  }
-}
-
-@keyframes loadingDots {
-  0% { content: ''; }
-  25% { content: '.'; }
-  50% { content: '..'; }
-  75% { content: '...'; }
-}
-
-@keyframes fadeIn {
+@keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -259,62 +248,46 @@ $wow-glow: #ff8c00;
   }
 }
 
-// Animation d'apparition des éléments
 .detail-page {
-  animation: fadeIn 0.6s ease;
-  
+  animation: slideUp 0.4s ease;
+
   > * {
-    animation: fadeIn 0.6s ease backwards;
-    
-    @for $i from 1 through 10 {
+    animation: slideUp 0.4s ease backwards;
+
+    @for $i from 1 through 8 {
       &:nth-child(#{$i}) {
-        animation-delay: #{$i * 0.1}s;
+        animation-delay: #{$i * 0.06}s;
       }
     }
   }
 }
 
-// Responsive
 @media (max-width: 768px) {
   .detail-page {
-    padding: 40px 20px;
-    
-    h1, h2 {
-      font-size: 32px;
-    }
-    
-    h3 {
-      font-size: 24px;
-    }
-    
+    padding: 72px 16px 40px;
+
     > p {
-      font-size: 18px;
-      padding: 16px 20px;
+      font-size: 14px;
+      padding: 14px 16px;
     }
-    
-    ul {
-      grid-template-columns: 1fr;
-      gap: 12px;
-      
-      li {
-        font-size: 16px;
-        padding: 16px 20px;
-      }
+
+    h3 {
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    ul li {
+      font-size: 14px;
+      padding: 12px 14px;
     }
   }
-}
 
-// Ajout d'un badge "NEW" optionnel pour les nouveaux specs/races
-.badge-new {
-  display: inline-block;
-  padding: 4px 12px;
-  background: linear-gradient(135deg, #ff0000, #cc0000);
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  border-radius: 4px;
-  margin-left: 8px;
-  box-shadow: 0 2px 8px rgba(255, 0, 0, 0.4);
-  animation: pulse 2s ease-in-out infinite;
+  .icon-link {
+    position: absolute; 
+    top: 24px;
+    left: 24px;
+    z-index: 100;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
 }

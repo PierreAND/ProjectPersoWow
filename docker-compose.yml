@@ -7,14 +7,16 @@ services:
       POSTGRES_DB: test
     ports: 
      - "5433:5432"
+    volumes:
+     - db_data:/var/lib/postgresql
 
 
-  adminer:
-    image: adminer
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
+  # adminer:
+  #   image: adminer
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - db
 
   frontend:
     build:
@@ -25,3 +27,19 @@ services:
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
+  
+  backend:
+    image: node:20-alpine
+    container_name: backend
+    volumes:
+      - ./backend:/usr/src/app
+    ports:
+      - 3000:3000
+    working_dir: /usr/src/app
+    tty: true
+    depends_on:
+      - db
+
+
+volumes:
+  db_data:

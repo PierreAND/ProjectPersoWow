@@ -17,6 +17,7 @@ model Specialisation {
   templates Template[]
   cycles    Cycle[]
   glyphes   Glyphe[]
+  bestInSlots   BestInSlot[]
 }
 
 model Template {
@@ -39,6 +40,29 @@ model Glyphe {
   id     Int             @id @default(autoincrement())
   majeur String
   mineur String
+  spe    Specialisation? @relation(fields: [speId], references: [id])
+  speId  Int?
+}
+
+model BestInSlot {
+  id Int                 @id @default(autoincrement())
+  tete String 
+  collier String
+  epaule String
+  cape String
+  torse String
+  bracelet String
+  gants String 
+  ceinture String
+  pantalon String
+  bottes String
+  anneaux1 String
+  anneaux2 String
+  bijoux1 String
+  bijoux2 String
+  arme1 String
+  arme2 String
+  arme3 String
   spe    Specialisation? @relation(fields: [speId], references: [id])
   speId  Int?
 }

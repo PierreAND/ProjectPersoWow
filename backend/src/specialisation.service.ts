@@ -17,6 +17,7 @@ export class SpecialisationService {
         glyphes: true,
         templates: true,
         cycles: true,
+        bestInSlots: true,
       },
     });
   }
@@ -27,6 +28,7 @@ export class SpecialisationService {
         glyphes: true,
         cycles: true,
         templates: true,
+        bestInSlots: true,
       },
     });
   }

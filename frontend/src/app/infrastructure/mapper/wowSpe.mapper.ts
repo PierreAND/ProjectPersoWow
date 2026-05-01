@@ -1,5 +1,5 @@
-import { SpecialisationDTO, GlypheDTO, TemplateDTO, CycleDTO } from '../dto/wow-spe.dto';
-import { Specialisation, Glyphe, Template, Cycle } from '../../domain/models/wowSpeDetails.model';
+import { SpecialisationDTO, GlypheDTO, TemplateDTO, CycleDTO, BiSDTO } from '../dto/wow-spe.dto';
+import { Specialisation, Glyphe, Template, Cycle, BestInSlots } from '../../domain/models/wowSpeDetails.model';
 
 export class SpecialisationMapper {
   static fromDTO(dto: SpecialisationDTO): Specialisation {
@@ -8,8 +8,10 @@ export class SpecialisationMapper {
       dto.glyphes?.map(g => this.mapGlyphe(g)) ?? [],
       dto.templates?.map(t => this.mapTemplate(t)) ?? [],
       dto.cycles?.map(c => this.mapCycle(c)) ?? [],
-    );
+      dto.bestInSlots?.map(b => this.mapBiS(b)) ?? [],
+    )
   }
+
 
   private static mapGlyphe(dto: GlypheDTO): Glyphe {
     return new Glyphe(
@@ -36,6 +38,30 @@ export class SpecialisationMapper {
       dto.zone,
       dto.speId,
     );
+  }
+
+  private static mapBiS(dto: BiSDTO): BestInSlots {
+    return new BestInSlots(
+      dto.id,
+      dto.tete,      
+      dto.collier,
+      dto.epaule,
+      dto.cape,
+      dto.torse,
+      dto.bracelet,
+      dto.gants,
+      dto.pantalon,
+      dto.ceinture,
+      dto.bottes, 
+      dto.anneaux1,
+      dto.anneaux2,
+      dto.bijoux1,
+      dto.bijoux2,
+      dto.arme1,
+      dto.arme2,
+      dto.arme3,
+      dto.speId
+    )
   }
 
 
